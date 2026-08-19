@@ -1,0 +1,21 @@
+Sample sanitized Terraform plan
+===============================
+
+Command:
+terraform plan -var-file="terraform.tfvars"
+
+Expected future resources:
+- aws_ecr_repository.app
+- aws_ecr_lifecycle_policy.app
+- aws_cloudwatch_log_group.app
+- aws_apprunner_service.app
+- aws_iam_openid_connect_provider.github
+- aws_iam_role.github_actions_deploy
+- aws_iam_policy.github_actions_deploy
+- aws_iam_role.apprunner_ecr_access
+
+Sample summary:
+Plan: 9 to add, 0 to change, 0 to destroy.
+
+Safety note:
+This sample is sanitized. Do not run terraform apply unless you intentionally want to create AWS resources and accept possible AWS costs.

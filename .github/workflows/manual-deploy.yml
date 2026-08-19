@@ -1,0 +1,70 @@
+name: Manual AWS Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Terraform action to run"
+        required: true
+        default: "plan"
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+      confirm_cost:
+        description: "Type I-understand-this-may-create-AWS-costs"
+        required: true
+        default: "type-confirmation-here"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+
+jobs:
+  terraform:
+    name: Manual Terraform ${{ inputs.action }}
+    runs-on: ubuntu-latest
+    environment: future-aws-deploy
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - name: Check manual cost confirmation
+        run: |
+          if [ "${{ inputs.confirm_cost }}" != "I-understand-this-may-create-AWS-costs" ]; then
+            echo "Manual deployment stopped. Re-run with the exact cost confirmation phrase."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: "1.15.8"
+
+      - name: Configure AWS credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v6.2.3
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform plan
+        if: inputs.action == 'plan'
+        run: terraform plan -var-file="terraform.tfvars"
+
+      - name: Terraform apply
+        if: inputs.action == 'apply'
+        run: terraform apply -auto-approve -var-file="terraform.tfvars"
+
+      - name: Terraform destroy
+        if: inputs.action == 'destroy'
+        run: terraform destroy -auto-approve -var-file="terraform.tfvars"

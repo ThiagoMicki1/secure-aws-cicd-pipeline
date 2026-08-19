@@ -1,0 +1,24 @@
+rules:
+  - id: python-flask-debug-enabled
+    message: "Do not run Flask debug mode in production."
+    severity: WARNING
+    languages: [python]
+    pattern: app.run(..., debug=True, ...)
+
+  - id: python-subprocess-shell-true
+    message: "Avoid subprocess calls with shell=True because user input can become command injection."
+    severity: ERROR
+    languages: [python]
+    pattern: subprocess.$FUNC(..., shell=True, ...)
+
+  - id: python-hardcoded-password
+    message: "Avoid hardcoded passwords or secrets in source code."
+    severity: ERROR
+    languages: [python]
+    patterns:
+      - pattern-either:
+          - pattern: $NAME = "$VALUE"
+          - pattern: $NAME = '$VALUE'
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: (?i).*(password|passwd|pwd|secret|token|api_key).*

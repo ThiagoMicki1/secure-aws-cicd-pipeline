@@ -1,0 +1,11 @@
+project_name       = "secure-aws-cicd-pipeline"
+aws_region         = "us-east-1"
+github_owner       = "YOUR_GITHUB_USERNAME"
+github_repo        = "secure-aws-cicd-pipeline"
+github_branch      = "main"
+github_environment = "future-aws-deploy"
+image_tag          = "manual-demo"
+
+# Placeholder for lab documentation only. Verify the current GitHub OIDC
+# certificate thumbprint before any real AWS deployment.
+github_oidc_thumbprints = ["6938fd4d98bab03faadb97b34396831e3780aea1"]

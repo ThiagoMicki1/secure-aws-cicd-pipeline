@@ -1,0 +1,15 @@
+Sample sanitized CI output
+==========================
+
+Python tests
+------------
+3 passed in 0.42s
+
+Docker build
+------------
+Successfully built secure-aws-cicd-pipeline:ci
+
+Result
+------
+PASS - Application tests completed.
+PASS - Docker image built successfully.

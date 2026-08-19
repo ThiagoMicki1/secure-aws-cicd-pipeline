@@ -1,0 +1,23 @@
+Sample sanitized security scan output
+=====================================
+
+Gitleaks
+--------
+PASS - No secrets detected.
+
+Semgrep
+-------
+PASS - No blocking Python, Flask, or secrets findings.
+
+Checkov
+-------
+PASS - Terraform, Dockerfile, and GitHub Actions configuration scanned.
+INFO - 2 documented portfolio-lab exceptions accepted.
+
+Trivy
+-----
+PASS - No fixed HIGH or CRITICAL operating system package vulnerabilities found in the sample image.
+
+Notes
+-----
+This file is sanitized sample output for portfolio review. It does not contain real tokens, cloud account IDs, or private logs.

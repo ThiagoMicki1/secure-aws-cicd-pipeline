@@ -1,0 +1,29 @@
+title = "Secure AWS CI/CD Pipeline Gitleaks Config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Allow clearly fake training placeholders only"
+paths = [
+  '''docs/.*''',
+  '''reports/.*''',
+  '''infra/terraform/terraform.tfvars.example'''
+]
+regexes = [
+  '''SANITIZED_[A-Z0-9_]+''',
+  '''example_[A-Za-z0-9_]+''',
+  '''fake_[A-Za-z0-9_]+''',
+  '''111122223333''',
+  '''123456789012'''
+]
+
+[[allowlists]]
+description = "Ignore local generated folders"
+paths = [
+  '''\.venv/.*''',
+  '''venv/.*''',
+  '''\.pytest_cache/.*''',
+  '''reports/local/.*''',
+  '''infra/terraform/\.terraform/.*'''
+]

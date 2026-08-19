@@ -1,0 +1,14 @@
+framework:
+  - terraform
+  - dockerfile
+  - github_actions
+quiet: true
+compact: true
+download-external-modules: false
+skip-path:
+  - .venv
+  - venv
+  - reports/local
+  - infra/terraform/.terraform
+skip-check:
+  - CKV_GHA_7
