@@ -25,15 +25,15 @@ Entry-level cloud security and DevSecOps roles expect more than writing applicat
 
 ```mermaid
 flowchart LR
-    Dev[Developer] --> Repo[GitHub Repository]
-    Repo --> CI[CI Workflow: tests + Docker build]
-    Repo --> Sec[Security Workflow: Gitleaks + Semgrep + Trivy + Checkov]
-    Repo --> TF[Terraform Validate Workflow]
-    Repo -. manual only .-> Deploy[Manual Deploy Workflow]
-    Deploy -. OIDC short-lived token .-> IAM[AWS IAM OIDC Role]
-    IAM -. future deploy .-> ECR[Amazon ECR]
-    ECR -. container image .-> AppRunner[AWS App Runner]
-    AppRunner -. logs .-> CW[CloudWatch Logs]
+    Dev["Developer"] --> Repo["GitHub Repository"]
+    Repo --> CI["CI Workflow"]
+    Repo --> Sec["Security Workflow"]
+    Repo --> TF["Terraform Validate Workflow"]
+    Repo -.-> Deploy["Manual Deploy Workflow"]
+    Deploy -.-> IAM["AWS IAM OIDC Role"]
+    IAM -.-> ECR["Amazon ECR"]
+    ECR -.-> AppRunner["AWS App Runner"]
+    AppRunner -.-> CW["CloudWatch Logs"]
 ```
 
 ## Project Structure
