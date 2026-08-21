@@ -88,7 +88,7 @@ Optional deploy mode is future-facing. It requires an AWS account, a configured 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements-dev.txt
+python -m pip install -r requirements-dev.txt
 flask --app app.main run --host 127.0.0.1 --port 8000
 ```
 
@@ -102,7 +102,7 @@ http://127.0.0.1:8000/health
 ## Run Tests
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
 ## Build and Run Docker

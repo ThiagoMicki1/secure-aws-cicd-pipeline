@@ -28,5 +28,15 @@ def test_security_controls_are_listed():
     controls = response.get_json()["controls"]
 
     assert response.status_code == 200
+    assert len(controls) == len(set(controls))
     assert "Gitleaks secrets scanning" in controls
     assert "Manual-only AWS deployment using GitHub OIDC" in controls
+
+
+def test_ready_endpoint_returns_true():
+    client = create_app().test_client()
+
+    response = client.get("/ready")
+
+    assert response.status_code == 200
+    assert response.get_json() == {"ready": True}
