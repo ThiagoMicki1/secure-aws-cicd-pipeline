@@ -1,5 +1,9 @@
 # Secure AWS CI/CD Pipeline
 
+[![CI](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/ci.yml)
+[![Security](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/security.yml/badge.svg)](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/security.yml)
+[![Terraform Validate](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/ThiagoMicki1/secure-aws-cicd-pipeline/actions/workflows/terraform-validate.yml)
+
 An intermediate DevSecOps portfolio lab that shows how a small web app can be tested, containerized, scanned, and prepared for a future AWS deployment using GitHub Actions, Terraform, and GitHub OIDC.
 
 **This project does not deploy to AWS by default.** The normal workflow is safe portfolio mode: run tests, build Docker, scan code, scan infrastructure, and validate Terraform without AWS credentials.
@@ -77,7 +81,7 @@ secure-aws-cicd-pipeline/
 
 Safe mode is the default and recommended portfolio mode. It requires no AWS account and no AWS credentials. You can run tests, build the image, run scanners, and validate Terraform locally or in GitHub Actions.
 
-Optional deploy mode is future-facing. It requires an AWS account, a configured GitHub OIDC role, repository variables, and a manual workflow run. It is never triggered by push or pull request.
+Optional deploy mode is future-facing. It requires an AWS account, a configured GitHub OIDC role, repository variables, a pushed ECR image, and a manual workflow run. It is never triggered by push or pull request. See [docs/deployment-bootstrap.md](docs/deployment-bootstrap.md) before attempting any future deployment.
 
 ## Run Locally
 
@@ -183,6 +187,10 @@ See:
 - Scanners are most useful when their findings are explained and remediated.
 - Terraform validation is safe; Terraform apply changes real infrastructure.
 - Manual deployment gates reduce accidental cloud risk.
+
+## What I Struggled With
+
+The hardest part was separating safe validation from real deployment. I wanted the repo to look deployment-ready, but I also had to make sure it would not create AWS resources by accident. Understanding why OIDC is safer than storing AWS keys helped the design click: GitHub can request short-lived credentials only when the manual workflow is intentionally run.
 
 ## Future Improvements
 
