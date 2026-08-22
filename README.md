@@ -83,6 +83,8 @@ Safe mode is the default and recommended portfolio mode. It requires no AWS acco
 
 Optional deploy mode is future-facing. It requires an AWS account, a configured GitHub OIDC role, repository variables, a pushed ECR image, and a manual workflow run. It is never triggered by push or pull request. See [docs/deployment-bootstrap.md](docs/deployment-bootstrap.md) before attempting any future deployment.
 
+CloudTrail and AWS Config examples for a future production-ready path are documented in [docs/cloudtrail-config-examples.md](docs/cloudtrail-config-examples.md).
+
 ## Run Locally
 
 ```bash
@@ -197,6 +199,5 @@ The hardest part was separating safe validation from real deployment. I wanted t
 - Add SARIF upload for scanner results
 - Add branch protection rules
 - Add a real staging environment after AWS budget alerts are configured
-- Add CloudTrail and AWS Config examples
 - Add signed container images
 - Add Open Policy Agent policy checks
