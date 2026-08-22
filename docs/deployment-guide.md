@@ -7,7 +7,7 @@ This repository is safe by default. Deployment is optional and manual-only.
 Use this mode for GitHub and interviews:
 
 ```bash
-pytest -q
+python -m pytest -q
 docker build -t secure-aws-cicd-pipeline:local .
 cd infra/terraform
 terraform init -backend=false
