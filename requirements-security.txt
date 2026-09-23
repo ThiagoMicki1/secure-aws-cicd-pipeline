@@ -1,2 +1,2 @@
-checkov==3.3.11
+checkov==3.3.19
 semgrep==1.173.0
